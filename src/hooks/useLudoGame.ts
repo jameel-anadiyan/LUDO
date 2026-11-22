@@ -64,7 +64,18 @@ export function useLudoGame(initialSettings: GameSettings) {
     consecutiveSixes,
     finishedOrder,
   });
-  latestRef.current = {
+
+  useEffect(() => {
+    latestRef.current = {
+      settings,
+      players,
+      tokens,
+      turnIndex,
+      phase,
+      consecutiveSixes,
+      finishedOrder,
+    };
+  }, [
     settings,
     players,
     tokens,
@@ -72,7 +83,7 @@ export function useLudoGame(initialSettings: GameSettings) {
     phase,
     consecutiveSixes,
     finishedOrder,
-  };
+  ]);
 
   const clearAllTimers = useCallback(() => {
     for (const t of timersRef.current) {
@@ -355,16 +366,17 @@ export function useLudoGame(initialSettings: GameSettings) {
     if (!currentPlayer || !currentPlayer.isBot) return;
 
     const myEpoch = epochRef.current;
+    const timerSet = timersRef.current;
     const timer = setTimeout(() => {
-      timersRef.current.delete(timer);
+      timerSet.delete(timer);
       if (epochRef.current !== myEpoch) return;
       rollDice();
     }, 520);
-    timersRef.current.add(timer);
+    timerSet.add(timer);
 
     return () => {
       clearTimeout(timer);
-      timersRef.current.delete(timer);
+      timerSet.delete(timer);
     };
   }, [phase, turnIndex, players, rollDice]);
 

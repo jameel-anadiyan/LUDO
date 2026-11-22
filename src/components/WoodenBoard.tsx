@@ -25,9 +25,9 @@ import { MoveOption, PlayerColor } from '../types/ludo';
 
 interface WoodenBoardProps {
   boardSize: number;
-  activeColors: ReadonlyArray<PlayerColor>;
+  activeColors: readonly PlayerColor[];
   currentTurnColor: PlayerColor;
-  validMoves: ReadonlyArray<MoveOption>;
+  validMoves: readonly MoveOption[];
   isHumanSelecting: boolean;
   onSelectMove: (move: MoveOption) => void;
   children?: React.ReactNode;
@@ -103,30 +103,30 @@ export const WoodenBoard: React.FC<WoodenBoardProps> = ({
     return validMoves.find((m) => m.isExitYard);
   }, [isHumanSelecting, validMoves]);
 
-  const yards: Array<{ color: PlayerColor; x0: number; y0: number }> = [
+  const yards: { color: PlayerColor; x0: number; y0: number }[] = [
     { color: 'red', x0: 0, y0: 0 },
     { color: 'green', x0: 9, y0: 0 },
     { color: 'yellow', x0: 9, y0: 9 },
     { color: 'blue', x0: 0, y0: 9 },
   ];
 
-  const startCells: Array<{
+  const startCells: {
     color: PlayerColor;
     trackIdx: number;
     dir: 'right' | 'down' | 'left' | 'up';
-  }> = [
+  }[] = [
     { color: 'red', trackIdx: START_TRACK_INDEX.red, dir: 'right' },
     { color: 'green', trackIdx: START_TRACK_INDEX.green, dir: 'down' },
     { color: 'yellow', trackIdx: START_TRACK_INDEX.yellow, dir: 'left' },
     { color: 'blue', trackIdx: START_TRACK_INDEX.blue, dir: 'up' },
   ];
 
-  const homeTurnArrows: Array<{
+  const homeTurnArrows: {
     row: number;
     col: number;
     color: PlayerColor;
     dir: 'right' | 'down' | 'left' | 'up';
-  }> = [
+  }[] = [
     { row: 7, col: 0, color: 'red', dir: 'right' },
     { row: 0, col: 7, color: 'green', dir: 'down' },
     { row: 7, col: 14, color: 'yellow', dir: 'left' },

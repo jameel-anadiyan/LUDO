@@ -4,7 +4,7 @@ import { GridPoint, PlayerColor, TokenState } from '../types/ludo';
  * Standard 15x15 Ludo outer clockwise path (52 squares, indices 0..51).
  * Each entry is [row, col] with row 0..14 (top->bottom), col 0..14 (left->right).
  */
-export const OUTER_TRACK_CELLS: ReadonlyArray<readonly [number, number]> = [
+export const OUTER_TRACK_CELLS: readonly (readonly [number, number])[] = [
   // Left arm, top row (left -> right)
   [6, 0],
   [6, 1], // 1: RED START (Safe)
@@ -78,7 +78,7 @@ export const START_TRACK_INDEX: Record<PlayerColor, number> = {
   blue: 40,
 };
 
-export const STAR_TRACK_INDICES: ReadonlyArray<number> = [9, 22, 35, 48];
+export const STAR_TRACK_INDICES: readonly number[] = [9, 22, 35, 48];
 
 export const SAFE_TRACK_INDICES: ReadonlySet<number> = new Set([
   1, 9, 14, 22, 27, 35, 40, 48,
@@ -87,7 +87,7 @@ export const SAFE_TRACK_INDICES: ReadonlySet<number> = new Set([
 /**
  * Private 5-cell colored Home Stretch for steps 51..55 ([row, col])
  */
-export const HOME_STRETCH_CELLS: Record<PlayerColor, ReadonlyArray<readonly [number, number]>> = {
+export const HOME_STRETCH_CELLS: Record<PlayerColor, readonly (readonly [number, number])[]> = {
   red: [
     [7, 1],
     [7, 2],
@@ -132,14 +132,14 @@ function rotateCW(pt: GridPoint, quarterTurns: 0 | 1 | 2 | 3): GridPoint {
   return { cx, cy };
 }
 
-const RED_YARD_SOCKETS: ReadonlyArray<GridPoint> = [
+const RED_YARD_SOCKETS: readonly GridPoint[] = [
   { cx: 1.95, cy: 1.95 },
   { cx: 4.05, cy: 1.95 },
   { cx: 1.95, cy: 4.05 },
   { cx: 4.05, cy: 4.05 },
 ];
 
-export const YARD_SOCKETS: Record<PlayerColor, ReadonlyArray<GridPoint>> = {
+export const YARD_SOCKETS: Record<PlayerColor, readonly GridPoint[]> = {
   red: RED_YARD_SOCKETS,
   green: [
     { cx: 10.95, cy: 1.95 },
@@ -162,14 +162,14 @@ export const YARD_SOCKETS: Record<PlayerColor, ReadonlyArray<GridPoint>> = {
 };
 
 // Base finished pockets inside Red's left triangle (6,6)-(6,9)-(7.5,7.5)
-const RED_GOAL_POCKETS: ReadonlyArray<GridPoint> = [
+const RED_GOAL_POCKETS: readonly GridPoint[] = [
   { cx: 6.38, cy: 6.95 },
   { cx: 6.38, cy: 8.05 },
   { cx: 6.82, cy: 7.28 },
   { cx: 6.82, cy: 7.72 },
 ];
 
-export const GOAL_POCKETS: Record<PlayerColor, ReadonlyArray<GridPoint>> = {
+export const GOAL_POCKETS: Record<PlayerColor, readonly GridPoint[]> = {
   red: RED_GOAL_POCKETS,
   green: RED_GOAL_POCKETS.map((p) => rotateCW(p, 1)),
   yellow: RED_GOAL_POCKETS.map((p) => rotateCW(p, 2)),
@@ -219,7 +219,7 @@ export interface PositionedToken {
  * multiple tokens sharing the same track or home-stretch square.
  */
 export function computeAllTokenPositions(
-  tokens: ReadonlyArray<TokenState>
+  tokens: readonly TokenState[]
 ): Record<string, PositionedToken> {
   const result: Record<string, PositionedToken> = {};
   const cellGroups = new Map<string, TokenState[]>();
@@ -238,16 +238,16 @@ export function computeAllTokenPositions(
     cellGroups.set(key, list);
   }
 
-  const OFFSETS_2: ReadonlyArray<readonly [number, number]> = [
+  const OFFSETS_2: readonly (readonly [number, number])[] = [
     [-0.18, -0.14],
     [0.18, 0.14],
   ];
-  const OFFSETS_3: ReadonlyArray<readonly [number, number]> = [
+  const OFFSETS_3: readonly (readonly [number, number])[] = [
     [0, -0.2],
     [-0.2, 0.16],
     [0.2, 0.16],
   ];
-  const OFFSETS_4_PLUS: ReadonlyArray<readonly [number, number]> = [
+  const OFFSETS_4_PLUS: readonly (readonly [number, number])[] = [
     [-0.19, -0.19],
     [0.19, -0.19],
     [-0.19, 0.19],

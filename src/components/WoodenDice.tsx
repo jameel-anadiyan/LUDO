@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Animated, Easing, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import { HOUSE_COLORS, WOODEN_THEME } from '../theme/woodenTheme';
@@ -15,7 +15,7 @@ interface WoodenDiceProps {
   onRoll: () => void;
 }
 
-const PIP_LAYOUTS: Record<number, ReadonlyArray<readonly [number, number]>> = {
+const PIP_LAYOUTS: Record<number, readonly (readonly [number, number])[]> = {
   1: [[50, 50]],
   2: [
     [28, 28],
@@ -58,15 +58,12 @@ export const WoodenDice: React.FC<WoodenDiceProps> = ({
   onRoll,
 }) => {
   const [rollingFace, setRollingFace] = useState<number>(value ?? 6);
-  const spinAnim = useRef(new Animated.Value(0)).current;
-  const bounceAnim = useRef(new Animated.Value(1)).current;
-  const promptPulse = useRef(new Animated.Value(0)).current;
+  const [spinAnim] = useState(() => new Animated.Value(0));
+  const [bounceAnim] = useState(() => new Animated.Value(1));
+  const [promptPulse] = useState(() => new Animated.Value(0));
 
   useEffect(() => {
-    if (!isRolling) {
-      if (value !== null) setRollingFace(value);
-      return;
-    }
+    if (!isRolling) return;
 
     let step = 0;
     const faceTimer = setInterval(() => {

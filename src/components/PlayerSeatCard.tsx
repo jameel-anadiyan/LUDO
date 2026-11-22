@@ -6,7 +6,7 @@ import { PlayerConfig, TokenState } from '../types/ludo';
 interface PlayerSeatCardProps {
   player: PlayerConfig | undefined;
   isCurrentTurn: boolean;
-  tokens: ReadonlyArray<TokenState>;
+  tokens: readonly TokenState[];
   finishRank: number | null; // 1, 2, 3, 4 if finished
   alignRight?: boolean;
 }

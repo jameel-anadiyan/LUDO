@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Platform, Pressable, StyleSheet } from 'react-native';
 import Svg, { Circle, Ellipse } from 'react-native-svg';
 import { HOUSE_COLORS, WOODEN_THEME } from '../theme/woodenTheme';
@@ -8,7 +8,7 @@ const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 export interface ActiveHopSequence {
   tokenId: string;
-  waypoints: ReadonlyArray<GridPoint>;
+  waypoints: readonly GridPoint[];
   onHopStep: () => void;
   onFinished: () => void;
 }
@@ -40,11 +40,11 @@ export const PawnToken: React.FC<PawnTokenProps> = ({
   const targetX = cx * cellSize - half;
   const targetY = cy * cellSize - half;
 
-  const animX = useRef(new Animated.Value(targetX)).current;
-  const animY = useRef(new Animated.Value(targetY)).current;
-  const animBaseScale = useRef(new Animated.Value(baseScale)).current;
-  const animHopScale = useRef(new Animated.Value(1)).current;
-  const pulseAnim = useRef(new Animated.Value(0)).current;
+  const [animX] = useState(() => new Animated.Value(targetX));
+  const [animY] = useState(() => new Animated.Value(targetY));
+  const [animBaseScale] = useState(() => new Animated.Value(baseScale));
+  const [animHopScale] = useState(() => new Animated.Value(1));
+  const [pulseAnim] = useState(() => new Animated.Value(0));
 
   const isThisTokenHopping = activeHop?.tokenId === token.id;
   const prevCellSizeRef = useRef(cellSize);

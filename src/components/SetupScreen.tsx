@@ -19,13 +19,13 @@ interface SetupScreenProps {
   onOpenRules: () => void;
 }
 
-const DIFFICULTIES: Array<{ id: AIDifficulty; title: string; subtitle: string }> = [
+const DIFFICULTIES: { id: AIDifficulty; title: string; subtitle: string }[] = [
   { id: 'easy', title: 'Apprentice', subtitle: 'Relaxed & forgiving' },
   { id: 'medium', title: 'Tactician', subtitle: 'Balanced classic AI' },
   { id: 'hard', title: 'Grandmaster', subtitle: 'Calculates odds & traps' },
 ];
 
-const BOT_COUNTS: Array<{ count: 1 | 2 | 3; label: string; desc: string }> = [
+const BOT_COUNTS: { count: 1 | 2 | 3; label: string; desc: string }[] = [
   { count: 1, label: '1 Bot', desc: '1v1 Duel' },
   { count: 2, label: '2 Bots', desc: '3 Players' },
   { count: 3, label: '3 Bots', desc: 'Full 4P Board' },

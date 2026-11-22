@@ -6,8 +6,8 @@ import { PlayerColor, PlayerConfig, PlayerStats, TokenState } from '../types/lud
 
 interface VictoryModalProps {
   visible: boolean;
-  standings: ReadonlyArray<PlayerConfig>;
-  tokens: ReadonlyArray<TokenState>;
+  standings: readonly PlayerConfig[];
+  tokens: readonly TokenState[];
   stats: Record<PlayerColor, PlayerStats>;
   humanColor: PlayerColor;
   onPlayAgain: () => void;

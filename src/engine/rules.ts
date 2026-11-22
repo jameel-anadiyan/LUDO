@@ -48,7 +48,7 @@ export function buildMatchPlayers(settings: GameSettings): PlayerConfig[] {
   }));
 }
 
-export function createInitialTokens(activeColors: ReadonlyArray<PlayerColor>): TokenState[] {
+export function createInitialTokens(activeColors: readonly PlayerColor[]): TokenState[] {
   const tokens: TokenState[] = [];
   for (const color of activeColors) {
     for (let i = 0; i < 4; i++) {
@@ -74,7 +74,7 @@ export function isStepSafe(color: PlayerColor, step: number): boolean {
  * Determine all legal moves for `color` given `diceValue` (1..6).
  */
 export function getValidMoves(
-  tokens: ReadonlyArray<TokenState>,
+  tokens: readonly TokenState[],
   color: PlayerColor,
   diceValue: number,
   safePairs: boolean
@@ -164,7 +164,7 @@ export function getValidMoves(
 /**
  * Check if all valid moves are functionally identical (e.g., all movable tokens are in yard).
  */
-export function hasSingleUniqueChoice(moves: ReadonlyArray<MoveOption>): boolean {
+export function hasSingleUniqueChoice(moves: readonly MoveOption[]): boolean {
   if (moves.length === 0) return false;
   if (moves.length === 1) return true;
   if (moves.every((m) => m.isExitYard)) return true;
@@ -184,7 +184,7 @@ export interface MoveExecutionResult {
  * Apply a chosen move and generate step-by-step GridPoint waypoints for hopping animation.
  */
 export function executeMove(
-  tokens: ReadonlyArray<TokenState>,
+  tokens: readonly TokenState[],
   move: MoveOption
 ): MoveExecutionResult {
   const movingToken = tokens.find((t) => t.id === move.tokenId)!;
@@ -228,7 +228,7 @@ export function executeMove(
 }
 
 export function isPlayerFinished(
-  tokens: ReadonlyArray<TokenState>,
+  tokens: readonly TokenState[],
   color: PlayerColor
 ): boolean {
   return tokens.filter((t) => t.color === color && t.step === 56).length === 4;
@@ -239,9 +239,9 @@ export function isPlayerFinished(
  * followed by remaining players sorted by finished pawns & total step progress.
  */
 export function computeStandings(
-  players: ReadonlyArray<PlayerConfig>,
-  tokens: ReadonlyArray<TokenState>,
-  finishedOrder: ReadonlyArray<PlayerColor>
+  players: readonly PlayerConfig[],
+  tokens: readonly TokenState[],
+  finishedOrder: readonly PlayerColor[]
 ): PlayerConfig[] {
   const finishedSet = new Set(finishedOrder);
   const podium: PlayerConfig[] = [];

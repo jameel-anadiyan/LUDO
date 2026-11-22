@@ -6,7 +6,7 @@ import { SAFE_TRACK_INDICES, START_TRACK_INDEX, getOuterTrackIndex } from './boa
  * (or 7..11 steps via a 6 + roll for Hard AI).
  */
 function evaluateTrackDanger(
-  tokens: ReadonlyArray<TokenState>,
+  tokens: readonly TokenState[],
   myColor: PlayerColor,
   targetTrackIdx: number,
   includeExtendedThreat: boolean
@@ -49,7 +49,7 @@ function evaluateTrackDanger(
  * Check if landing at `targetTrackIdx` puts our token 1..6 steps behind a vulnerable opponent.
  */
 function evaluateStalkingBonus(
-  tokens: ReadonlyArray<TokenState>,
+  tokens: readonly TokenState[],
   myColor: PlayerColor,
   myToStep: number,
   targetTrackIdx: number
@@ -72,8 +72,8 @@ function evaluateStalkingBonus(
  * Select the best move for an AI Bot according to difficulty tier.
  */
 export function chooseAIMove(
-  tokens: ReadonlyArray<TokenState>,
-  moves: ReadonlyArray<MoveOption>,
+  tokens: readonly TokenState[],
+  moves: readonly MoveOption[],
   difficulty: AIDifficulty
 ): MoveOption {
   if (moves.length === 1) return moves[0];
