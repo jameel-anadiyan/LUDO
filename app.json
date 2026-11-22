@@ -2,15 +2,18 @@
   "expo": {
     "name": "Royal Wooden Ludo",
     "slug": "royal-wooden-ludo",
+    "owner": "jameelanadiyans-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "backgroundColor": "#160D07",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jameelanadiyan.royalwoodenludo"
     },
     "android": {
+      "package": "com.jameelanadiyan.royalwoodenludo",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -21,6 +24,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "091e652b-1a09-4f50-978e-6962e8b8cdff"
+      }
     }
   }
 }
